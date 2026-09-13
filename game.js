@@ -77,12 +77,18 @@ blocks.forEach(block => {
 const allBlocksGone = blocks.every(block => !block.active);
 if (allBlocksGone) {
   level++;
-  ball.speedX *= 1.2; // Ball gets slightly faster
+  ball.speedX *= 1.2;
   ball.speedY *= 1.2;
-  createBlocks(); // New blocks appear
+  createBlocks();
+  
+  // RESET BALL POSITION
+  ball.x = 200;
+  ball.y = 550;
+  ball.speedX = 3;
+  ball.speedY = -1.5;
 }
 
-// Draw score and level at BOTTOM
+  // Draw score and level at BOTTOM
 ctx.fillStyle = 'white';
 ctx.font = '16px Arial';
 ctx.fillText('Score: ' + score, 10, canvas.height - 10);
