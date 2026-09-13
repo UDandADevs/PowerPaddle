@@ -2,6 +2,11 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// Prevent page scrolling
+document.addEventListener('touchmove', (event) => {
+  event.preventDefault();
+}, { passive: false });
+
 // Ball
 const ball = {
   x: 200,
