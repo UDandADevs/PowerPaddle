@@ -14,7 +14,7 @@ const ball = {
 // Paddle
 const paddle = {
   x: 160,
-  y: 580,
+  y: 550,
   width: 80,
   height: 10
 };
@@ -77,12 +77,12 @@ if (allBlocksGone) {
   createBlocks(); // New blocks appear
 }
 
-// Draw score and level
+// Draw score and level at BOTTOM
 ctx.fillStyle = 'white';
 ctx.font = '16px Arial';
-ctx.fillText('Score: ' + score, 10, 20);
-ctx.fillText('Level: ' + level, 10, 45);
-ctx.fillText('Best: ' + bestScore, 10, 70);
+ctx.fillText('Score: ' + score, 10, canvas.height - 10);
+ctx.fillText('Level: ' + level, 150, canvas.height - 10);
+ctx.fillText('Best: ' + bestScore, 280, canvas.height - 10);
 
 // Move paddle based on keys pressed
 if (leftPressed && paddle.x > 0) {
@@ -150,10 +150,10 @@ if (ball.y > canvas.height) {
   requestAnimationFrame(draw);
 }
 
-// Paddle controls - FIXED
 let leftPressed = false;
 let rightPressed = false;
 
+// Keyboard controls (for desktop)
 document.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft') {
     leftPressed = true;
@@ -169,6 +169,22 @@ document.addEventListener('keyup', (event) => {
   }
   if (event.key === 'ArrowRight') {
     rightPressed = false;
+  }
+});
+
+// Touch controls (for phone)
+document.addEventListener('touchmove', (event) => {
+  const touchX = event.touches[0].clientX;
+  const canvasRect = canvas.getBoundingClientRect();
+  const canvasX = touchX - canvasRect.left;
+  
+  // Move paddle to follow finger
+  paddle.x = canvasX - paddle.width / 2;
+  
+  // Keep paddle in bounds
+  if (paddle.x < 0) paddle.x = 0;
+  if (paddle.x > canvas.width - paddle.width) {
+    paddle.x = canvas.width - paddle.width;
   }
 });
 // Start the game
