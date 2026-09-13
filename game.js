@@ -72,8 +72,8 @@ blocks.forEach(block => {
 const allBlocksGone = blocks.every(block => !block.active);
 if (allBlocksGone) {
   level++;
-  ball.speedX *= 1.05; // Ball gets slightly faster
-  ball.speedY *= 1.05;
+  ball.speedX *= 1.2; // Ball gets slightly faster
+  ball.speedY *= 1.2;
   createBlocks(); // New blocks appear
 }
 
